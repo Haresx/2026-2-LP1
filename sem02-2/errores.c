@@ -2,20 +2,25 @@
 #include<stdlib.h>
 
 int main (){
-    int contador;
+    int contador=0;
     printf("Contador: %d\n",contador);
     
-    int a = 10, b = 0;
-    int division = a / b;
+    int a=10,b = 2;
+    if (b != 0) {
+        int division = a / b;
+        printf("Division: %d\n", division);
+        }else {
+        printf("Error: Division por cero\n");
+        }
     
     char nombre[10];
-    printf("Ingrese su nombre: \n");
-    scanf("%s",nombre);
+    printf("Ingrese su nombre: ");
+    fgets(nombre, sizeof(nombre), stdin);
+    printf("Nombre: %s", nombre);
 
     float precio = 19.99;
-    printf("Precio: %d\n", precio);
+    printf("Precio: %.2f\n", precio);
 
-    int variable_no_usada = 42;
-    
+   
     return 0;
 }
