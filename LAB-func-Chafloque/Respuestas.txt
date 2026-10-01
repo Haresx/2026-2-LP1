@@ -1,0 +1,40 @@
+1. ¿Por qué n sigue siendo 10 en main?
+    Porque el valor de x fue pasado sin referencia por lo que solo cambio su valor, dentro de la funcion incrementar, mas no en el main
+2. ¿Cómo se resolvería sin usar punteros?
+    Podria ser asignando la funcion en vez de void a un int y actualizar el valor de n desde el main con dicha funcion
+3. Reescribir incrementar para que retorne el valor modificado.
+    int incrementar(int x) {
+    x = x + 1;
+    printf("Dentro de incrementar: x = %d\n", x);
+    return x;
+    }
+1. Predecir la salida de cada uno.
+    En el A saldra 1,1,1 y al final 0, en el programa B saldra el global contador como 3
+2. Compilar y verificar. ¿Sorpresa?
+    Todo tal cual lo he predicho
+3. Refactorizar para eliminar la variable global: pasar el contador por parámetro y retornar el nuevo valor: int incrementar(int contador) { return contador + 1; }
+#include <stdio.h>
+
+int incrementar(int contador) { 
+    return contador + 1; 
+}
+int main(void) {
+    int contador = 0; 
+    contador = incrementar(contador);
+    contador = incrementar(contador);
+    contador = incrementar(contador);
+    printf("Contador = %d\n", contador);
+    return 0;
+}
+4. Discusión: ¿Por qué las variables globales son una mala práctica en Ingeniería de Software? Mencionar al menos tres razones (acoplamiento, dificultad de testeo, condiciones de carrera en concurrencia).
+    Porque en acoplamiento, evita que los modulos sean independientes unos a otros, si se modifica la variable global se tiene que revisar cada modulo y corregir y adaptar la variable global
+    En la parte de testeo, evita que se puedan evaluar los modulos en un entorno controlado debido a la variable global, si una funcion modifica el estado de la variable global, otra funcion puede arrastrar ese estado
+    En proyectos cooperativos tener una variable global es peligroso debido a las diferentes ramas y como estas pueden modificar la variable global afectando al resto del equipo
+1. ¿Qué contiene el .h y qué no debe contener?
+    Contiene los prototipos de funciones, los #define y #ifndef validando que solo se guarde una vez, no debe contener ni las funciones desarrolladas ni algun que otro parametro declarado
+2. ¿Por qué el .h no debe tener definiciones de funciones (salvo static inline en casos avanzados)?
+    Un archivo .h no debe tener definiciones de funciones porque, al ser incluido en varios archivos fuente, el compilador generará el cuerpo de la función en múltiples archivos objeto, provocando un error de "símbolo duplicado"
+3. ¿Para qué sirven las directivas (#ifndef/#define/#endif)? Probar incluir el mismo .h dos veces en main.c y ver qué pasa con y sin guardas.
+    Las directivas #ifndef/#define/#endif sirven para evitar que el contenido de un archivo .h se duplique si se incluye varias veces en el mismo archivo fuente; sin ellas, el compilador procesará el mismo código dos veces, provocando errores de redefinición de tipos o estructuras
+4. ¿Por qué main.c solo necesita incluir raiz_digital.h y no raiz_digital.c?    
+    main.c solo necesita incluir raiz_digital.h porque el archivo de cabecera le da al compilador los prototipos de las funciones para saber cómo llamarlas, mientras que el código real de raiz_digital.c se compila por separado y el enlazador (linker) se encarga de unirlos al final.
