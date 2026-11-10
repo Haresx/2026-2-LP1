@@ -1,0 +1,7 @@
+001,Juan,18,5
+002,Pedro,16,4
+003,Maria,19,3
+003,Maria,19
+004,Carlos,15
+003,Maria,19
+004,Carlos,15
